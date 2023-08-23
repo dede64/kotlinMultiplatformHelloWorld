@@ -142,7 +142,7 @@ struct MapCanvas_Previews: PreviewProvider {
                         location: MicroclimatePoint(
                             latitude: 14,
                             longitude: 10,
-                            pointID: 0, locationID: 0, measuredValues: []
+                            pointID: 0, locationID: 0, measuredValues: [], title: ""
                         )
                     ),
                     DataMeasurement(
@@ -151,7 +151,7 @@ struct MapCanvas_Previews: PreviewProvider {
                         location: MicroclimatePoint(
                             latitude: 17,
                             longitude: 1,
-                            pointID: 0, locationID: 0, measuredValues: []
+                            pointID: 0, locationID: 0, measuredValues: [], title: ""
                         )
                     ),
                     DataMeasurement(
@@ -160,7 +160,7 @@ struct MapCanvas_Previews: PreviewProvider {
                         location: MicroclimatePoint(
                             latitude: 5,
                             longitude: -2,
-                            pointID: 0, locationID: 0, measuredValues: []
+                            pointID: 0, locationID: 0, measuredValues: [], title: ""
                         )
                     ),
                     DataMeasurement(
@@ -169,7 +169,7 @@ struct MapCanvas_Previews: PreviewProvider {
                         location: MicroclimatePoint(
                             latitude: -7,
                             longitude: 126,
-                            pointID: 0, locationID: 0, measuredValues: []
+                            pointID: 0, locationID: 0, measuredValues: [], title: ""
                         )
                     ),
                 ]

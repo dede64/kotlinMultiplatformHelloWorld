@@ -66,7 +66,7 @@ extension ContentView {
             controller.getDataMeasurements(measuredValue: self.selection, from: getcurrentTime(minuteOffset: -20), to: getcurrentTime(minuteOffset: -10)) { result, error in
                 DispatchQueue.main.async {
                     if let result = result {
-                        self.debugText = result.map { "\($0.value) \($0.measuredValue.unit)   \($0.location.longitude), \($0.location.latitude)" }.joined(separator: "\n")
+                        self.debugText = result.map { "\($0.location.title)\n\($0.value) \($0.measuredValue.unit)   \($0.location.longitude), \($0.location.latitude)" }.joined(separator: "\n")
                         mapViewModel.measurements.removeAll()
                         mapViewModel.measurements.append(contentsOf: result)
                         mapViewModel.initializeCanvasData()

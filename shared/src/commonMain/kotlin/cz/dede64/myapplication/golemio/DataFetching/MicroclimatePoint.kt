@@ -19,5 +19,8 @@ data class MicroclimatePoint (
     val locationID: Int,
 
     @SerialName("measures")
-    val measuredValues: List<MicroclimateMeasuredValue>
+    val measuredValues: List<MicroclimateMeasuredValue>,
+
+    @SerialName("location")
+    val title: String
 )
