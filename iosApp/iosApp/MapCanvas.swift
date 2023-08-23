@@ -11,7 +11,7 @@ import shared
 
 struct MapCanvas: View {
     /**
-     Renders fetched measurements on the canvas as points based on the latitude and longitude of the real weather stations.
+     Renders fetched measurements on the canvas as points based on the longitude and latitude of the real weather stations.
      */
 
     @ObservedObject var viewModel: MapCanvasViewModel
@@ -80,10 +80,10 @@ class MapCanvasViewModel: ObservableObject {
     func initializeCanvasData(){
         
         // Get min and max values from all the measurements.
-        minX = Double(measurements.min { $0.location.latitude < $1.location.latitude}?.location.latitude ?? 0.0)
-        maxX = Double(measurements.max { $0.location.latitude < $1.location.latitude}?.location.latitude ?? 0.0)
-        minY = Double(measurements.min { $0.location.longitude < $1.location.longitude}?.location.longitude ?? 0.0)
-        maxY = Double(measurements.max { $0.location.longitude < $1.location.longitude}?.location.longitude ?? 0.0)
+        minX = Double(measurements.min { $0.location.longitude < $1.location.longitude}?.location.longitude ?? 0.0)
+        maxX = Double(measurements.max { $0.location.longitude < $1.location.longitude}?.location.longitude ?? 0.0)
+        minY = Double(measurements.min { $0.location.latitude < $1.location.latitude}?.location.latitude ?? 0.0)
+        maxY = Double(measurements.max { $0.location.latitude < $1.location.latitude}?.location.latitude ?? 0.0)
         minVal = Double(measurements.min { $0.value < $1.value }?.value ?? 0.0)
         maxVal = Double(measurements.max { $0.value < $1.value }?.value ?? 0.0)
         
@@ -110,8 +110,8 @@ class MapCanvasViewModel: ObservableObject {
         for measurement in measurements {
             
             // Converts real world coordinates to values between 0 and 1 (same for the measurement value, which is used for color gradient)
-            let x: Double = (Double(measurement.location.latitude) - minX) / scaleFactor + ((scaleFactor + minX - maxX) / (2 * scaleFactor))
-            let y: Double = (Double(measurement.location.longitude) - minY) / scaleFactor + ((scaleFactor + minY - maxY) / (2 * scaleFactor))
+            let x: Double = (Double(measurement.location.longitude) - minX) / scaleFactor + ((scaleFactor + minX - maxX) / (2 * scaleFactor))
+            let y: Double = 1.0 - ((Double(measurement.location.latitude) - minY) / scaleFactor + ((scaleFactor + minY - maxY) / (2 * scaleFactor)))
             let value: Double = (Double(measurement.value) - minVal) / (maxVal - minVal)
             
             result.append(CanvasPoint(
@@ -140,8 +140,8 @@ struct MapCanvas_Previews: PreviewProvider {
                         value: 10,
                         measuredValue: dummyMeasuredValue,
                         location: MicroclimatePoint(
-                            latitude: 10,
-                            longitude: 14,
+                            latitude: 14,
+                            longitude: 10,
                             pointID: 0, locationID: 0, measuredValues: []
                         )
                     ),
@@ -149,8 +149,8 @@ struct MapCanvas_Previews: PreviewProvider {
                         value: 15,
                         measuredValue: dummyMeasuredValue,
                         location: MicroclimatePoint(
-                            latitude: 1,
-                            longitude: 17,
+                            latitude: 17,
+                            longitude: 1,
                             pointID: 0, locationID: 0, measuredValues: []
                         )
                     ),
@@ -158,8 +158,8 @@ struct MapCanvas_Previews: PreviewProvider {
                         value: 3,
                         measuredValue: dummyMeasuredValue,
                         location: MicroclimatePoint(
-                            latitude: -2,
-                            longitude: 5,
+                            latitude: 5,
+                            longitude: -2,
                             pointID: 0, locationID: 0, measuredValues: []
                         )
                     ),
@@ -167,8 +167,8 @@ struct MapCanvas_Previews: PreviewProvider {
                         value: 12,
                         measuredValue: dummyMeasuredValue,
                         location: MicroclimatePoint(
-                            latitude: 126,
-                            longitude: -7,
+                            latitude: -7,
+                            longitude: 126,
                             pointID: 0, locationID: 0, measuredValues: []
                         )
                     ),

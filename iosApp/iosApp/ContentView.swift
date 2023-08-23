@@ -62,10 +62,11 @@ extension ContentView {
         func fetchMeasurements(mapViewModel: MapCanvasViewModel) {
             guard self.choices != [] else { return }
             
-            controller.getDataMeasurements(measuredValue: self.selection, from: "2023-08-22T18:03:42.588Z", to: "2023-08-22T18:13:42.588Z") { result, error in
+//            controller.getDataMeasurements(measuredValue: self.selection, from: "2023-08-22T18:03:42.588Z", to: "2023-08-22T18:13:42.588Z") { result, error in
+            controller.getDataMeasurements(measuredValue: self.selection, from: getcurrentTime(minuteOffset: -20), to: getcurrentTime(minuteOffset: -10)) { result, error in
                 DispatchQueue.main.async {
                     if let result = result {
-                        self.debugText = result.map { "\($0.value) \($0.measuredValue.unit)   \($0.location.latitude), \($0.location.longitude)" }.joined(separator: "\n")
+                        self.debugText = result.map { "\($0.value) \($0.measuredValue.unit)   \($0.location.longitude), \($0.location.latitude)" }.joined(separator: "\n")
                         mapViewModel.measurements.removeAll()
                         mapViewModel.measurements.append(contentsOf: result)
                         mapViewModel.initializeCanvasData()
@@ -74,6 +75,16 @@ extension ContentView {
                     }
                 }
             }
+        }
+        
+        func getcurrentTime(hourOffset: Int = 0, minuteOffset: Int = 0) -> String {
+            
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+            dateFormatter.timeZone = TimeZone(identifier: "UTC")
+
+            let currentDate = Date().addingTimeInterval(TimeInterval(hourOffset * 3600 + minuteOffset * 60))
+            return dateFormatter.string(from: currentDate)
         }
     }
 }
